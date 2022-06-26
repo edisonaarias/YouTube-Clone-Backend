@@ -22,7 +22,7 @@ def comments_list(request):
 @api_view(['GET', 'PUT'])
 def Comment_detail(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    if request.methed == 'GET':
+    if request.method == 'GET':
         serializers = CommentSerializer(comment);
         return Response(serializers.data)
     elif request.method == 'PUT':
