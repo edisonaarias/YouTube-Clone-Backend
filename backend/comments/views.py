@@ -21,11 +21,6 @@ def comments_list(request):
   
 @api_view(['GET'])
 def Comment_detail(request, pk):
-    try:
-        comment = Comment.objects.get(pk=pk)
+        comment = get_object_or_404(Comment, pk=pk)
         serializers = CommentSerializer(comment);
         return Response(serializers.data)
-
-    except Comment.DoesNotExist:
-        return Response(status=status.HTTP_404);
-
