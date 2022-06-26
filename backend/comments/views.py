@@ -1,5 +1,6 @@
 import comments
 from rest_framework.decorators import api_view
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CommentSerializer
@@ -24,7 +25,7 @@ def Comment_detail(request, pk):
         comment = Comment.objects.get(pk=pk)
         serializers = CommentSerializer(comment);
         return Response(serializers.data)
-        
+
     except Comment.DoesNotExist:
         return Response(status=status.HTTP_404);
 
