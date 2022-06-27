@@ -18,7 +18,7 @@ def comments_list(request):
     elif request.method == 'POST':
         serializer = CommentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(user=request.user)
         return Response (serializer.data, status=status.HTTP_201_CREATED)
   
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -26,7 +26,7 @@ def comments_list(request):
 def Comment_detail(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == 'GET':
-        serializers = CommentSerializer(comment);
+        serializers = CommentSerializer(comment)
         return Response(serializers.data)
     elif request.method == 'PUT':
         serializers = CommentSerializer(comment, data=request.data)

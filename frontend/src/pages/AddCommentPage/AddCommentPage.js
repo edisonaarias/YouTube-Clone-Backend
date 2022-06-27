@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 
 import useAuth from "../../hooks/useAuth"
-import useCustomFrom from "../../hooks/useCustomFrom"
+import useCustomForm from "../../hooks/useCustomForm"
 
 let initialValues = {
     user: "",
@@ -13,15 +13,28 @@ let initialValues = {
     dislikes: "",
 };
 
-const AddCarPage = () => {
-    const [user, token] = useAuth()
-    const navigate = useNavigate()
-    const [fromData, handleInputChange, handleSubmit] = useCustomFrom(initialValues)
+const AddCommentPage = () => {
+    const [user, token] = useAuth();
+    const navigate = useNavigate();
+    const [fromData, handleInputChange, handleSubmit] = useCustomForm(
+        initialValues,
+        postNewComment
+    );
 
     async function postNewComment(){
             try {
-                let response = await axios.post("http://127.0.0.1:8000/api/comments/")
+              let response = await axios.post(
+                "http://127.0.0.1:8000/api/comments/", 
+                fromData, 
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    },
+                }
+              );
+                navigate("/")
             } catch (error) {
+                console.log(error.message)
 
             }
         }
@@ -29,24 +42,7 @@ const AddCarPage = () => {
     return (
         <div className="container">
           <form className="form" onSubmit={handleSubmit}>
-            <label>
-              user:{" "}
-              <input
-                type="text"
-                name="video_id"
-                value={fromData.user}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              video_id:{" "}
-              <input
-                type="text"
-                name="video_id"
-                value={fromData.video_id}
-                onChange={handleInputChange}
-              />
-            </label>
+              
             <label>
               text{" "}
               <input
@@ -56,6 +52,8 @@ const AddCarPage = () => {
                 onChange={handleInputChange}
               />
             </label>
+
+
             <label>
               text:{" "}
               <input
@@ -65,6 +63,8 @@ const AddCarPage = () => {
                 onChange={handleInputChange}
               />
             </label>
+
+
             <label>
               like:{" "}
               <input
@@ -83,10 +83,12 @@ const AddCarPage = () => {
                 onChange={handleInputChange}
               />
             </label>
+
             <p style={{ fontSize: "12px" }}>
               NOTE: Make this an uncommon password with characters, numbers, and
               special characters!
             </p>
+            
             <button>Register!</button>
           </form>
         </div>
@@ -94,4 +96,4 @@ const AddCarPage = () => {
 };
 
 
-export default AddCommentPage
+export default AddCommentPage;
