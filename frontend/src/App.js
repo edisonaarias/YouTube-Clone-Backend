@@ -6,9 +6,11 @@ import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import SearchPage from "./pages/SearchPage/SearchPage";
+import VideoPage from "./pages/VideoPage/VideoPage";
+
+
 import AddCommentPage from "./pages/AddCommentPage/AddCommentPage";
-import SearchPage from "./components/SearchPage/SearchPage";
-import VideoPage from "./components/VideoPage/VideoPage";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import RelatedVideos from "./components/VideoPlayer/VideoPlayer";
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -40,6 +42,8 @@ function App() {
         <Route path="/login" element={<LoginPage />}/>
         <Route path="/Search" element={<SearchPage />}/>
         <Route path="/Video" element={<VideoPage />}/>
+
+        
         <Route path="/Player" element={<VideoPlayer />}/>
         <Route path="/Related" element={<RelatedVideos />}/>
         <Route path="/Bar" element={<SearchBar />}/>
